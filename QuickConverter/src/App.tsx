@@ -1,35 +1,34 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+
+import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
+import LengthConverter from "./components/LengthConverter.tsx";
+import CurrencyConverter from "./components/CurrencyConverter.tsx";
+import TemperatureConverter from "./components/TemperatureConverter.tsx";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <Router>
+      <div className="p-4 bg-blue-500 text-white min-h-screen">
+        <nav className="mb-4 flex justify-center space-x-4">
+          <Link className="text-lg underline" to="/">Home</Link>
+          <Link className="text-lg underline" to="/length">Length</Link>
+          <Link className="text-lg underline" to="/currency">Currency</Link>
+          <Link className="text-lg underline" to="/temperature">Temperature</Link>
+        </nav>
+
+        <Routes>
+          <Route path="/" element={
+            <>
+              <h1 className="text-2xl">Welcome to the Quick Converter!</h1>
+              <p className="mt-2">Choose a conversion tool above to get started.</p>
+            </>
+          } />
+          <Route path="/length" element={<LengthConverter />} />
+          <Route path="/currency" element={<CurrencyConverter />} />
+          <Route path="/temperature" element={<TemperatureConverter />} />
+        </Routes>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    </Router>
+  );
 }
 
-export default App
+export default App;

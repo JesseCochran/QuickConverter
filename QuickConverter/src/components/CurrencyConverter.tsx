@@ -238,11 +238,11 @@ function CurrencyConverter() {
     const customStyles: StylesConfig<CurrencyOption, false> = {
         control: (provided) => ({
             ...provided,
-            minWidth: '200px',
+            minWidth: '300px',
         }),
         menu: (provided) => ({
             ...provided,
-            width: '200px',
+            width: '300px',
         }),
         option: (provided) => ({
             ...provided,

@@ -9,7 +9,7 @@ interface UnitOption {
 }
 
 function LengthConverter() {
-    const [input, setInput] = useState<number>(0);
+    const [input, setInput] = useState<string>("");
     const [fromUnit, setFromUnit] = useState<Unit>("meters");
     const [toUnit, setToUnit] = useState<Unit>("feet");
     const [result, setResult] = useState<number | null>(null);
@@ -26,8 +26,9 @@ function LengthConverter() {
     };
 
     const convert = () => {
-        if (fromUnit && toUnit && conversionRates[fromUnit] && conversionRates[toUnit]) {
-            const valueInMeters = input / conversionRates[fromUnit];
+        const inputValue = parseFloat(input);
+        if (fromUnit && toUnit && conversionRates[fromUnit] && conversionRates[toUnit] && !isNaN(inputValue)) {
+            const valueInMeters = inputValue / conversionRates[fromUnit];
             setResult(valueInMeters * conversionRates[toUnit]);
         } else {
             setResult(null);
@@ -36,11 +37,16 @@ function LengthConverter() {
 
     useEffect(() => {
         convert();
-    }, [input, fromUnit, toUnit]);
+    }, [input, fromUnit, toUnit, decimals]);
 
     const handleFlip = () => {
         setFromUnit(toUnit);
         setToUnit(fromUnit);
+    };
+
+    const handleClear = () => {
+        setInput("");
+        setResult(null);
     };
 
     const unitOptions: UnitOption[] = Object.keys(conversionRates).map((unit) => ({
@@ -70,7 +76,7 @@ function LengthConverter() {
                 <input
                     type="number"
                     value={input}
-                    onChange={(e) => setInput(Number(e.target.value))}
+                    onChange={(e) => setInput(e.target.value)}
                     placeholder="Enter value"
                     className="w-full max-w-sm p-2 text-black border rounded-md"
                 />
@@ -79,6 +85,12 @@ function LengthConverter() {
                     className="bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600"
                 >
                     Flip
+                </button>
+                <button
+                    onClick={handleClear}
+                    className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600"
+                >
+                    Clear
                 </button>
             </div>
 

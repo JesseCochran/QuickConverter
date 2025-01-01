@@ -8,15 +8,18 @@ function App() {
   return (
     <Router>
       <div className="p-4 bg-blue-500 text-white min-h-screen">
+      <header className="mb-4 text-center">
+          <h1 className="text-4xl font-bold">Quick Converter</h1>
+        </header>
         <nav className="mb-4 flex justify-center space-x-4">
-          <Link className="text-lg underline" to="/">Home</Link>
+          <Link className="text-lg underline" to="/QuickConverter">Home</Link>
           <Link className="text-lg underline" to="/length">Length</Link>
           <Link className="text-lg underline" to="/currency">Currency</Link>
           <Link className="text-lg underline" to="/temperature">Temperature</Link>
         </nav>
 
         <Routes>
-          <Route path="/" element={
+          <Route path="/QuickConverter" element={
             <>
               <h1 className="text-2xl">Welcome to the Quick Converter!</h1>
               <p className="mt-2">Choose a conversion tool above to get started.</p>
